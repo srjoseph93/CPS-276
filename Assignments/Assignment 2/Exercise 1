@@ -1,0 +1,25 @@
+<?php
+	$output = "<ul>";
+
+	for ($i = 1; $i <= 4; $i++) {
+		$output += "<li>$i</li><ul>";
+        for ($j = 1; $j <= 5; $j++) {
+            $output += "<li>j</li>";
+          }
+          $output+="</ul">;
+	  }
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<?php
+	echo $output;
+?>
+
+</body>
+</html>

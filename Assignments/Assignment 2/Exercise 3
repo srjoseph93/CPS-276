@@ -1,0 +1,32 @@
+<?php
+	$output = "<table>";
+
+	for ($i = 1; $i <= 15; $i++) {
+		$output += "<tr>";
+        for ($j = 1; $j <= 5; $j++){
+            $output += "<td>Row $i Cell $j</td>";
+        }
+        $output += "</tr>";
+            
+   $output += "</table>";
+
+?>
+<!DOCTYPE HTML>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<head>
+    <meta charset="utf-8">
+    <title>Exercise 3</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <?pho
+        echo $output;
+     ?>       
+
+</body>
+</html>
