@@ -28,9 +28,7 @@ class Crud extends PdoMethods{
    public function addFile(){
   
        $pdo = new PdoMethods();
-
        $sql = "INSERT INTO files (file_name, file_path, entered_file_name) VALUES (:fname, :fpath, :enteredname)";
-  
         $bindings = [
            [':fname',$_FILES["selectedFile"]["name"],'str'],
            [':fpath',"files/".$_FILES["selectedFile"]["name"],'str'],

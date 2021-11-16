@@ -1,46 +1,36 @@
 <?php
 
-    class DatabaseConn {  
+class DatabaseConn {	
 
-        private $conn;
+  private $conn;
+  /* THIS CLASS CONNECTS TO THE DATABASE ONLY AND SETS UP THE ATTRIBUTE PARAMETERS */
+  public function dbOpen(){
 
-        public function dbOpen(){
+    try {
 
-            $dbhost = "localhost";
+      $dbHost = 'localhost';
+      $dbName = 'srjoseph';
+      $dbUsr = 'srjoseph';
+      $dbPass = 'QwQwZ5UxSWAS';
 
-            $root = "root";
-            $root_password = "rootpass";
+      $this->conn = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUsr, $dbPass);
+      
+      $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); /*THIS STOPS PDO FROM ADDING SINGLE QUOTES AROUND INTEGER VALUES.*/
+      $this->conn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);/* FORCES QUERIES TO BE BUFFERED IN MYSQL */
+      $this->conn->setAttribute(PDO::ATTR_AUTOCOMMIT, true);/* THIS ALLOWS TO REVERT TO ITS PREVIOUS STATE WHEN A TRANSACTION IS COMMITTED OR ROLLED BACK*/
+      $this->conn->setAttribute(PDO::MYSQL_ATTR_LOCAL_INFILE, true);/*THE LOAD DATA INFILE STATEMENT READS ROWS FROM A TEXT FILE INTO A TABLE AT A VERY HIGH SPEED.  MORE INFO AT https://tecfa.unige.ch/guides/mysql/man/manuel_LOAD_DATA.html*/
+      $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);/* ERROR REPORTING AND THROWING OF ERRORS*/
 
-            $dbUser = 'newuser';
-            $dbPass = 'newpass';
-            $dbName = "newdb";
+      return $this->conn;
 
-            try {
-                $dbh = new PDO("mysql:host=$host", $root, $root_password);
-
-                $dbh->exec("CREATE DATABASE `$db`;
-                CREATE USER '$user'@'localhost' IDENTIFIED BY '$pass';
-                GRANT ALL ON `$db`.* TO '$user'@'localhost';
-                FLUSH PRIVILEGES;")or die(print_r($dbh->errorInfo(), true));
-            }
-            catch (PDOException $e) {
-                die("DB ERROR: " . $e->getMessage());
-            }
-            try {
-
-
-                $this->conn = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUser, $dbPass);
-                $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
-                $this->conn->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-                $this->conn->setAttribute(PDO::ATTR_AUTOCOMMIT, true);
-                $this->conn->setAttribute(PDO::MYSQL_ATTR_LOCAL_INFILE, true);
-                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                return $this->conn;
-
-            }
-            catch(PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
     }
+      
+    catch(PDOException $e) { 
+
+      echo $e->getMessage(); 
+
+    }
+
+  }
+}
 ?>

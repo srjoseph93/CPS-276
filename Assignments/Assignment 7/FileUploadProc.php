@@ -31,12 +31,12 @@
 
         function moveFile(){
 
-            if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], "files/".$this->fileName)){
+           try{
 
                 $crud = new Crud();
-                return $crud->addFile();
-  
-            }else{
+               return $crud->addFile();
+                  
+            }catch(PDOException $e){
                 return "There was a problem uploading your file. Please try again.";
             }
         }

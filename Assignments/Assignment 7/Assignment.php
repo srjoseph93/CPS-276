@@ -35,7 +35,7 @@
             <h2>File Upload</h2>
             <?php
 
-                $file = "displayLinks.php";
+                $file = "DisplayLinks.php";
 
                 echo "<a href= $file>Show file list</a><br><br>";
 
@@ -44,7 +44,7 @@
 
             <br><br>
 
-            <form action="assignment.php" method="post" enctype="multipart/form-data">
+            <form action="Assignment.php" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="fileName">File Name</label>

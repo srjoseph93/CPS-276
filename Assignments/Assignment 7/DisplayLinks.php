@@ -27,7 +27,7 @@
 
             <?php
 
-                $file = "assignment.php";
+                $file = "Assignment.php";
 
                 echo "<a href= $file>Add File</a><br><br>";
 
