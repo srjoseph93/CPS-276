@@ -4,15 +4,13 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: Pages/welcome.php");
+    header("location: welcome.php");
     exit;
 }
  
-// Include config file
-require_once "/home/s/r/srjoseph/public_html/Assignments/Final Project/Classes/Db_conn.php";
- 
 // Define variables and initialize with empty values
-$email = $password = "";
+$email = $password = $name = $status ="";
+$errorMSG = "";
 $email_err = $password_err = $login_err = "";
  
 // Processing form data when form is submitted
@@ -35,54 +33,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($email_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, email, password FROM contactMod2 WHERE email = :email";
         
-        if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
-            
-            // Set parameters
-            $param_email = $_POST["email"];
-            
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Check if username exists, if yes then verify password
-                if($stmt->rowCount() == 1){
-                    if($row = $stmt->fetch()){
-                        $id = $row["id"];
-                        $email = $row["email"];
-                        $hashed_password = $row["password"];
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
-                            
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email;                            
-                            
-                            // Redirect user to welcome page
-                            header("location: welcome.php");
-                        } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
-                        }
-                    }
-                } else{
-                    // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            unset($stmt);
-        }
-    }
+         $valid = false;
+         require_once '/home/s/r/srjoseph/public_html/Assignments/Final Project/Classes/Pdo_methods.php';
+         $pdo = new PdoMethods();
+ 
+         /* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
+         $sql = "SELECT * FROM contactMod2";
+     
+         $records = $pdo->selectNotBinded($sql);
+         foreach($records as $row){
+             if($email == $row['email'] && $password == $row['password']){
+                $name=$row['name'];
+                $status=$row['status'];
+                $valid = true;
+             }
+         }
+         
+         if($valid){
+               // Store data in session variables
+            $_SESSION["loggedin"] = true;
+            $_SESSION["id"] = $id;
+            $_SESSION["email"] = $email;
+            $_SESSION["name"] = $name;
+            $_SESSION["status"] = $status;
+        
+            header("location: /~srjoseph/Assignments/Final%20Project/index.php?page=welcome");
+         }
+         else{
+            $email_err = "Invalid Email and Pssword Combination";
+         }                   
+     
     
-    // Close connection
-    unset($pdo);
+    }
+    else{
+        $email_err = "Invalid Email and Password Combination";
+    }
 }
 ?>
  
@@ -112,7 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <label>Email</label>
                 <input type="text" name="email" class="form-control" value="hPotter@gmail.com">
-                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                <span class="invalid-feedback"></span>
             </div>    
             <div class="form-group">
                 <label>Password</label>

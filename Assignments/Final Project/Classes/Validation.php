@@ -10,6 +10,7 @@ class Validation{
 		switch($regex){
 			case "name": return $this->name($value); break;
 			case "phone": return $this->phone($value); break;
+			case "address": return $this->city($value); break;
 			
 			
 		}
@@ -19,6 +20,11 @@ class Validation{
 		
 	/* THE REST OF THE FUNCTIONS ARE THE INDIVIDUAL REGULAR EXPRESSION FUNCTIONS*/
 	private function name($value){
+		$match = preg_match('/^[a-z-\' ]{1,50}$/i', $value);
+		return $this->setError($match);
+	}
+
+	private function city($value){
 		$match = preg_match('/^[a-z-\' ]{1,50}$/i', $value);
 		return $this->setError($match);
 	}

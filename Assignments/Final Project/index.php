@@ -1,7 +1,7 @@
 <?php
+session_start();
 /* THIS ENTIRE PAGE IS JUST A PLACEHOLDER PAGE WHICH THE FORM WILL BE INJECTED INTO */
 /*I REQUIRE IN THE ROUTES PAGE WHICH IS ACTUALLY DOES THE WORK FOR GETTING THE PAGES.*/ 
-require_once('Pages/login.php');
 require_once('Pages/routes.php');
 
 ?>

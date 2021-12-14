@@ -44,14 +44,14 @@ $elementsArr = [
 	  "errorMessage"=>"<span style='color: red; margin-left: 15px;'>Name cannot be blank and must be a standard name</span>",
     "errorOutput"=>"",
     "type"=>"text",
-    "value"=>"Harry Potter",
+    "value"=>"Ron Weasley",
 		"regex"=>"name"
 	],
     "email"=>[
         "errorMessage"=>"<span style='color: red; margin-left: 15px;'>Email cannot be blank and must be a standard email</span>",
       "errorOutput"=>"",
       "type"=>"text",
-      "value"=>"hPotter@gmail.com",
+      "value"=>"rWeasley@gmail.com",
           "regex"=>"email"
       ],
       "password"=>[

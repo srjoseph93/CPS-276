@@ -63,7 +63,7 @@ $elementsArr = [
 	],
   "state"=>[
     "type"=>"select",
-    "options"=>["mi"=>"Michigan","oh"=>"Ohio","pa"=>"Pennslyvania","tx"=>"Texas"],
+    "options"=>["mi"=>"Michigan","oh"=>"Ohio","pa"=>"Pennslyvania","tx"=>"Texas","fl"=>"Florida","va"=>"Virginia"],
 		"selected"=>"mi",
 		"regex"=>"state"
 	],
